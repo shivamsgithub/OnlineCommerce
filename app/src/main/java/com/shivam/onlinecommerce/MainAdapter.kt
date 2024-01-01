@@ -9,13 +9,21 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
-class MainAdapter(val context: Activity, val productList: List<Product>) :
-    RecyclerView.Adapter<MainAdapter.MyViewHolder>() {
+class MainAdapter(val context: Activity, val productList: List<Product>) : RecyclerView.Adapter<MainAdapter.MyViewHolder>() {
 
-    // LM fails to create view for some data then this method is used
+    private lateinit var mListener : onItemClickListener
+    interface onItemClickListener{
+        fun OnItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: onItemClickListener){
+        mListener = listener
+    }
+
+    // Layout Manager fails to create view for some data then this method is used
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainAdapter.MyViewHolder {
         val itemView = LayoutInflater.from(context).inflate(R.layout.each_product, parent, false)
-        return MyViewHolder(itemView)
+        return MyViewHolder(itemView, mListener)
     }
 
     // populate data in the view
@@ -34,7 +42,7 @@ class MainAdapter(val context: Activity, val productList: List<Product>) :
         return productList.size
     }
 
-    class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    class MyViewHolder(itemView : View, listener : onItemClickListener) : RecyclerView.ViewHolder(itemView) {
 
         var image: ImageView
         var title: TextView
@@ -42,6 +50,10 @@ class MainAdapter(val context: Activity, val productList: List<Product>) :
         init {
             image = itemView.findViewById(R.id.iv_product)
             title = itemView.findViewById(R.id.tv_product_name)
+
+            itemView.setOnClickListener {
+                listener.OnItemClick(adapterPosition)
+            }
         }
     }
 

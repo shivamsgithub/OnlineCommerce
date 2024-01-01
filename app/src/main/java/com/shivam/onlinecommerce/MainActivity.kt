@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -43,6 +44,12 @@ class MainActivity : AppCompatActivity() {
                 mainAdapter = MainAdapter(this@MainActivity, productArray)
                 recyclerView.adapter = mainAdapter
                 recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 2)
+
+                mainAdapter.setOnItemClickListener(object  : MainAdapter.onItemClickListener{
+                    override fun OnItemClick(position: Int) {
+                        Toast.makeText(this@MainActivity, "you clicked on item no. $position", Toast.LENGTH_SHORT).show()
+                    }
+                })
             }
 
             override fun onFailure(call: Call<MainProducts?>, t: Throwable) {
