@@ -14,8 +14,8 @@
         
         <ImageView
             android:id="@+id/iv_product"
-            android:layout_width="wrap_content"
-            android:layout_height="110dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
             android:src="@drawable/ic_launcher_background"/>

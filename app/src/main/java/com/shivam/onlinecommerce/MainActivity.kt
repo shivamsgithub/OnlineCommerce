@@ -1,6 +1,8 @@
 package com.shivam.onlinecommerce
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.nfc.Tag
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.newFixedThreadPoolContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,11 +46,21 @@ class MainActivity : AppCompatActivity() {
 
                 mainAdapter = MainAdapter(this@MainActivity, productArray)
                 recyclerView.adapter = mainAdapter
-                recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 2)
+                recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
 
-                mainAdapter.setOnItemClickListener(object  : MainAdapter.onItemClickListener{
+                mainAdapter.setOnItemClickListener(object : MainAdapter.onItemClickListener {
+                    @SuppressLint("SuspiciousIndentation")
                     override fun OnItemClick(position: Int) {
-                        Toast.makeText(this@MainActivity, "you clicked on item no. $position", Toast.LENGTH_SHORT).show()
+                        val position = position + 1
+                            Toast.makeText(
+                            this@MainActivity,
+                            "you clicked on item no. $position",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        val intent = Intent(this@MainActivity, ProductActivity::class.java)
+                        intent.putExtra("productPosition", position)
+                        startActivity(intent)
+
                     }
                 })
             }
