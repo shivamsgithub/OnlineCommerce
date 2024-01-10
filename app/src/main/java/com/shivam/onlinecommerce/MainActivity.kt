@@ -7,8 +7,11 @@ import android.nfc.Tag
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,12 +27,22 @@ class MainActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
     lateinit var mainAdapter: MainAdapter
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerView = findViewById<RecyclerView>(R.id.rv_products)
+        val toolbar = findViewById<View>(R.id.toolbar) as androidx.appcompat.widget.Toolbar
+        toolbar.setBackgroundColor(resources.getColor(R.color.teal_200) )
+        toolbar.setTitle("App")
+        toolbar.setTitleTextColor(resources.getColor(R.color.black))
+        // using toolbar as ActionBar
+        setSupportActionBar(toolbar)
 
+        var ivCart = findViewById<ImageView>(R.id.iv_cart)
+        var tvCartCount = findViewById<TextView>(R.id.tv_item_count_main)
+
+        recyclerView = findViewById<RecyclerView>(R.id.rv_products)
 
         val retrofitBuilder = Retrofit.Builder()
             .baseUrl("https://dummyjson.com/")
@@ -61,8 +74,17 @@ class MainActivity : AppCompatActivity() {
                         intent.putExtra("productPosition", position)
                         startActivity(intent)
 
+                        var cartCount = intent.getIntExtra("count", 0)
+                        tvCartCount.setText("$cartCount")
+
                     }
                 })
+
+                ivCart.setOnClickListener{
+                    var intent = Intent (this@MainActivity , CartActivity::class.java)
+                    startActivity(intent)
+                }
+
             }
 
             override fun onFailure(call: Call<MainProducts?>, t: Throwable) {
