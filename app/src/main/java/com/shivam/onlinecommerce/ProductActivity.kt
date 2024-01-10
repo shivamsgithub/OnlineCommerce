@@ -84,7 +84,7 @@ class ProductActivity : AppCompatActivity() {
 
                 ivCart.setOnClickListener{
                     var intent = Intent (this@ProductActivity , CartActivity::class.java)
-                    intent.putExtra("price", responseBody?.price)
+                    intent.putExtra("position", productPosition)
                     startActivity(intent)
                 }
             }
