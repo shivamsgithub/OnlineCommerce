@@ -5,12 +5,14 @@ import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.AutoScrollHelper
 import androidx.viewpager2.widget.ViewPager2
 import me.relex.circleindicator.CircleIndicator3
 import retrofit2.Call
@@ -18,6 +20,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.Timer
+import java.util.TimerTask
+import java.util.logging.Handler
+
 
 class ProductActivity : AppCompatActivity() {
 
@@ -30,11 +36,10 @@ class ProductActivity : AppCompatActivity() {
         setContentView(R.layout.activity_product)
 
         val toolbar = findViewById<View>(R.id.toolbar) as androidx.appcompat.widget.Toolbar
-        toolbar.setBackgroundColor(resources.getColor(R.color.teal_200) )
-        toolbar.setTitle("App")
         toolbar.setTitleTextColor(resources.getColor(R.color.black))
-        // using toolbar as ActionBar
+
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val tvName = findViewById<TextView>(R.id.tv_productName)
         val tvPrice = findViewById<TextView>(R.id.tv_productPrice)
@@ -70,9 +75,8 @@ class ProductActivity : AppCompatActivity() {
 
                 val indicator : CircleIndicator3 = findViewById<CircleIndicator3>(R.id.indicator)
                 indicator.setViewPager(viewPager2)
-
                 tvName.text = responseBody?.title
-                tvPrice.text = responseBody?.price.toString()
+                tvPrice.text ="₹" + responseBody?.price.toString()
                 tvSpecification.text = responseBody?.description
 
                 btnAddToCart.setOnClickListener{v : View ->
@@ -95,12 +99,13 @@ class ProductActivity : AppCompatActivity() {
         })
     }
 
-//    override fun onBackPressed() {
-//        super.onBackPressed()
-//
-//        var intent = Intent(this@ProductActivity, MainActivity ::class.java)
-//        intent.putExtra("count", "$a")
-//        startActivity(intent)
-//    }
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }
