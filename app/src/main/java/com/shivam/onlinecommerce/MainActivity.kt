@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,11 +38,30 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val searchbox : SearchView = findViewById(R.id.sv_products)
+        var searchInput = searchbox.query
+
+        searchbox.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    var intent = Intent(this@MainActivity, SearchProductActivity::class.java)
+                    intent.putExtra("searchInput", searchInput.toString())
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this@MainActivity, "No text in Searchbox", Toast.LENGTH_LONG).show()
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                return false
+            }
+        })
 
         var ivCart = findViewById<ImageView>(R.id.iv_cart)
         var tvCartCount = findViewById<TextView>(R.id.tv_item_count_main)
 
-        recyclerView = findViewById<RecyclerView>(R.id.rv_products)
+        recyclerView = findViewById(R.id.rv_products)
 
         val retrofitBuilder = Retrofit.Builder()
             .baseUrl("https://dummyjson.com/")
@@ -78,8 +98,6 @@ class MainActivity : AppCompatActivity() {
                 sliderView.startAutoCycle()
 
 
-
-
                 mainAdapter.setOnItemClickListener(object : MainAdapter.onItemClickListener {
                     @SuppressLint("SuspiciousIndentation")
                     override fun OnItemClick(position: Int) {
@@ -91,7 +109,6 @@ class MainActivity : AppCompatActivity() {
 
                         var cartCount = intent.getIntExtra("count", 0)
                         tvCartCount.setText("$cartCount")
-
                     }
                 })
 
@@ -99,7 +116,6 @@ class MainActivity : AppCompatActivity() {
                     var intent = Intent (this@MainActivity , CartActivity::class.java)
                     startActivity(intent)
                 }
-
             }
 
             override fun onFailure(call: Call<MainProducts?>, t: Throwable) {
