@@ -43,14 +43,16 @@
                 android:id="@+id/tv_item_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:translationX="-3dp"
-                android:translationY="3dp"
-                android:gravity="left"
                 android:layout_gravity="left"
-                android:text="0"
                 android:layout_marginEnd="5dp"
+                android:gravity="left"
+                android:text="0"
+                android:paddingHorizontal="4dp"
+                android:background="@drawable/bg"
+                android:textColor="#EC1111"
                 android:textSize="12sp"
-                android:textColor="@color/white"/>
+                android:translationX="-3dp"
+                android:translationY="3dp" />
 
         </LinearLayout>
 
@@ -63,58 +65,79 @@
 
         <ImageView
             android:id="@+id/iv_product_cart"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="start"
-            android:layout_margin="5dp"
-            android:src="@drawable/ic_launcher_background"/>
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"/>
 
-        <TextView
-            android:id="@+id/tv_productName_cart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="name"
-            android:layout_toEndOf="@id/iv_product_cart"
-            android:layout_margin="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/tv_productPrice_cart"
-            android:layout_width="wrap_content"
-            android:layout_toEndOf="@id/iv_product_cart"
-            android:layout_below="@id/tv_productName_cart"
-            android:text="price"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginHorizontal="10dp"
-            android:textStyle="bold"
-            android:textColor="@color/teal_200"/>
-
-        <TextView
-        android:id="@+id/tv_product_delivery_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="Delivery Date : "
-        android:layout_toEndOf="@id/iv_product_cart"
-        android:layout_below="@id/tv_productPrice_cart"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/purple_700"
-        android:textStyle="bold"/>
-
-        <TextView
+        <LinearLayout
+            android:id="@+id/ll_cart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Address"
             android:layout_below="@id/iv_product_cart"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_productName_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toEndOf="@id/iv_product_cart"
+                android:text="name"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_productPrice_cart"
+                android:layout_width="wrap_content"
+                android:layout_toEndOf="@id/iv_product_cart"
+                android:layout_below="@id/tv_productName_cart"
+                android:text="00"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/teal_200"/>
+
+            <TextView
+                android:id="@+id/tv_product_delivery_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Delivery Estimate : 3-7 Days"
+                android:layout_toEndOf="@id/iv_product_cart"
+                android:layout_below="@id/tv_productPrice_cart"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_cart"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/edittext_bg"
+            android:gravity="start"
+            android:hint="Your address"
             android:lines="5"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:layout_margin="10dp"/>
+            android:maxLines="5"
+            android:padding="7dp"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
     </RelativeLayout>
 

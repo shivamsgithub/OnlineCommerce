@@ -1,16 +1,14 @@
 package com.shivam.onlinecommerce
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.bumptech.glide.Glide
 import com.smarteist.autoimageslider.SliderViewAdapter
 import com.squareup.picasso.Picasso
 
 
-class SliderAdapter(context: Context?, SliderDataModelArrayList: ArrayList<String>) :
+class SliderAdapter(SliderDataModelArrayList: ArrayList<String>) :
     SliderViewAdapter<SliderAdapter.SliderAdapterViewHolder?>() {
     // list for storing urls of images.
     private val mSliderItems: List<String>

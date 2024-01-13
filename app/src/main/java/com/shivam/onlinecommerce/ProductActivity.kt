@@ -47,8 +47,7 @@ class ProductActivity : AppCompatActivity() {
         val btnAddToCart = findViewById<Button>(R.id.btn_add_to_cart)
         var viewPager2  = findViewById<ViewPager2>(R.id.vp_product)
         var ivCart = findViewById<ImageView>(R.id.iv_cart)
-        val tvItemCount = findViewById<TextView>(R.id.tv_item_count)
-        tvItemCount.setText("0")
+        val tvItemCount = findViewById<TextView>(R.id.tv_item_count_product)
         btnAddToCart.setText("Add to Cart")
 
 
@@ -83,12 +82,14 @@ class ProductActivity : AppCompatActivity() {
                     Toast.makeText(this@ProductActivity, "Item Added to Cart", Toast.LENGTH_SHORT).show()
                     a++
                     Log.d("count of item", "Item Count: $a")
-                    tvItemCount.setText("$a")
+                    tvItemCount.text = "$a"
+
                 }
 
                 ivCart.setOnClickListener{
                     var intent = Intent (this@ProductActivity , CartActivity::class.java)
                     intent.putExtra("position", productPosition)
+                    intent.putExtra("count", a)
                     startActivity(intent)
                 }
             }
@@ -99,13 +100,18 @@ class ProductActivity : AppCompatActivity() {
         })
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        when (item.itemId) {
+//            android.R.id.home -> {
+//                finish()
+//                return true
+//            }
+//        }
+//        return super.onOptionsItemSelected(item)
+//    }
+
+
+    interface onItemAddedListener{
+        fun OnItemAdded (count: Int)
     }
 }

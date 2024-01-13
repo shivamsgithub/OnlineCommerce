@@ -37,14 +37,20 @@ class CartActivity : AppCompatActivity() {
         setContentView(R.layout.activity_cart)
 
         var position = intent.getIntExtra("position", 0 )
+        var count = intent.getIntExtra("count", 0)
         var tvPrice = findViewById<TextView>(R.id.tv_productPrice_cart)
         var tvName = findViewById<TextView>(R.id.tv_productName_cart)
         var ivImage = findViewById<ImageView>(R.id.iv_product_cart)
+        var tvItemCount = findViewById<TextView>(R.id.tv_item_count)
+
+        tvItemCount.text = "$count"
 
         val toolbar = findViewById<View>(R.id.toolbar) as androidx.appcompat.widget.Toolbar
         toolbar.setTitleTextColor(resources.getColor(R.color.black))
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
 
         val retrofitBuilder = Retrofit.Builder()
             .baseUrl("https://dummyjson.com/")
@@ -61,6 +67,9 @@ class CartActivity : AppCompatActivity() {
                 if (responseBody != null) {
                     var priceItem = responseBody.price
                     tvPrice.setText("₹" + "$priceItem")
+
+                    phonepeCode(priceItem)
+
                 }
                 if (responseBody != null) {
                     var nameItem = responseBody.title
@@ -77,7 +86,10 @@ class CartActivity : AppCompatActivity() {
             }
         })
 
-        PhonePe.init(this, PhonePeEnvironment.STAGE, "REPLACE_WITH_YOUR_MID", "REPLACE_WITH_YOUR_APP_ID")
+    }
+
+    fun phonepeCode (price : Int){
+        PhonePe.init(this, PhonePeEnvironment.STAGE, "PGTESTPAYUAT", "REPLACE_WITH_YOUR_APP_ID")
 
         try {
             PhonePe.setFlowId("Unique Id of the user") // Recommended, not mandatory , An alphanumeric string without any special character
@@ -92,7 +104,8 @@ class CartActivity : AppCompatActivity() {
         data.put ("merchantId","PGTESTPAYUAT")
         data.put ("merchantTransactionId", System.currentTimeMillis().toString())
         data.put ("merchantUserId", System.currentTimeMillis().toString())
-        data.put ("amount", tvPrice.text)
+        Log.d("Price", " " + price )
+        data.put ("amount", price )
         data.put("mobileNumber", "9999999999")
         data.put ("callbackUrl", "https://webhook.site/260afded-143c-4962-a0e7-30cb8cd6d0da")
 
@@ -121,6 +134,7 @@ class CartActivity : AppCompatActivity() {
             } catch( e: Exception){
             }
         }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -128,10 +142,6 @@ class CartActivity : AppCompatActivity() {
         if (requestCode == 1) {
 
             Toast.makeText(this, "check callback url", Toast.LENGTH_SHORT).show()
-            /*This callback indicates only about completion of UI flow.
-            Inform your server to make the transaction
-            status call to get the status. Update your app with the
-            success/failure status.*/
         }
     }
 
