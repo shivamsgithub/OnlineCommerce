@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".Activity.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -69,21 +69,20 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp"
         app:menu="@menu/main_menu"
         android:scrollIndicators="left"/>
 
-    <TextView
-        android:id="@+id/tv_item_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:translationZ="10dp"
-        android:translationX="214dp"
-        android:translationY="-65dp"
-        android:text="0"
-        android:layout_marginEnd="5dp"
-        android:textSize="14sp"
-        android:textColor="@color/black"/>
+<!--    <TextView-->
+<!--        android:id="@+id/tv_item_count"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:translationZ="10dp"-->
+<!--        android:translationX="205dp"-->
+<!--        android:translationY="-65dp"-->
+<!--        android:text="0"-->
+<!--        android:layout_marginEnd="5dp"-->
+<!--        android:textSize="10sp"-->
+<!--        android:textColor="@color/black"/>-->
 
 
 </LinearLayout>

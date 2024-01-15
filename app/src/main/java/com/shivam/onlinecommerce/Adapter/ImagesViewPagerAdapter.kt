@@ -1,4 +1,4 @@
-package com.shivam.onlinecommerce
+package com.shivam.onlinecommerce.Adapter
 
 
 import android.app.Activity
@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.shivam.onlinecommerce.R
 import com.squareup.picasso.Picasso
-import java.util.Objects
+
 class ImagesViewPagerAdapter(val context: Activity, private var images: List<String>):
     RecyclerView.Adapter<ImagesViewPagerAdapter.PagerViewholder>() {
 
@@ -24,11 +25,11 @@ class ImagesViewPagerAdapter(val context: Activity, private var images: List<Str
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImagesViewPagerAdapter.PagerViewholder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewholder {
         return PagerViewholder(LayoutInflater.from(parent.context).inflate(R.layout.product_image_holder, parent, false))
     }
 
-    override fun onBindViewHolder(holder: ImagesViewPagerAdapter.PagerViewholder, position: Int) {
+    override fun onBindViewHolder(holder: PagerViewholder, position: Int) {
 
 
         for (i in 0..images.size){

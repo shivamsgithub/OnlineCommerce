@@ -1,6 +1,9 @@
 package com.shivam.onlinecommerce
 
 
+import com.shivam.onlinecommerce.DataModel.MainProducts
+import com.shivam.onlinecommerce.DataModel.Product
+import com.shivam.onlinecommerce.DataModel.SearchProductModel
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

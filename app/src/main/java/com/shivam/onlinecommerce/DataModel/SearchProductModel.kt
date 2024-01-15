@@ -1,4 +1,4 @@
-package com.shivam.onlinecommerce
+package com.shivam.onlinecommerce.DataModel
 
 data class SearchProductModel(
     val limit: Int,

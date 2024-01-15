@@ -1,14 +1,15 @@
-package com.shivam.onlinecommerce
+package com.shivam.onlinecommerce.Activity
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
+import com.shivam.onlinecommerce.Fragment.CartFragment
+import com.shivam.onlinecommerce.Fragment.HomeFragment
+import com.shivam.onlinecommerce.Fragment.ProfileFragment
+import com.shivam.onlinecommerce.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -55,5 +56,4 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.container, fragment)
         transaction.commit()
     }
-
 }

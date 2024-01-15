@@ -1,14 +1,16 @@
-package com.shivam.onlinecommerce
+package com.shivam.onlinecommerce.Activity
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.shivam.onlinecommerce.ProductInterface
+import com.shivam.onlinecommerce.R
+import com.shivam.onlinecommerce.Adapter.SearchProductAdapter
+import com.shivam.onlinecommerce.DataModel.SearchProductModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,7 +45,8 @@ class SearchProductActivity : AppCompatActivity() {
                 recyclerView.adapter = searchAdapter
                 recyclerView.layoutManager = LinearLayoutManager(this@SearchProductActivity)
 
-                searchAdapter.setOnItemClickListener(object : SearchProductAdapter.onItemClickListener {
+                searchAdapter.setOnItemClickListener(object :
+                    SearchProductAdapter.onItemClickListener {
                     @SuppressLint("SuspiciousIndentation")
                     override fun OnSearchItemClick(position: Int) {
 //                        val position = position + 1

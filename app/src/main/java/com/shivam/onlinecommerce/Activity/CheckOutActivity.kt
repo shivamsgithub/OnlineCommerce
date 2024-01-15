@@ -1,6 +1,5 @@
-package com.shivam.onlinecommerce
+package com.shivam.onlinecommerce.Activity
 
-import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -13,15 +12,15 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager2.widget.ViewPager2
 import com.phonepe.intent.sdk.api.B2BPGRequestBuilder
 import com.phonepe.intent.sdk.api.PhonePe
 import com.phonepe.intent.sdk.api.PhonePeInitException
 import com.phonepe.intent.sdk.api.UPIApplicationInfo
 import com.phonepe.intent.sdk.api.models.PhonePeEnvironment
+import com.shivam.onlinecommerce.DataModel.Product
+import com.shivam.onlinecommerce.ProductInterface
+import com.shivam.onlinecommerce.R
 import com.squareup.picasso.Picasso
-import me.relex.circleindicator.CircleIndicator3
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,10 +30,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.nio.charset.Charset
 import java.security.MessageDigest
 
-class CartActivity : AppCompatActivity() {
+class CheckOutActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cart)
+        setContentView(R.layout.activity_check_out)
 
         var position = intent.getIntExtra("position", 0 )
         var count = intent.getIntExtra("count", 0)
@@ -105,7 +104,7 @@ class CartActivity : AppCompatActivity() {
         data.put ("merchantTransactionId", System.currentTimeMillis().toString())
         data.put ("merchantUserId", System.currentTimeMillis().toString())
         Log.d("Price", " " + price )
-        data.put ("amount", price )
+        data.put ("amount", price*100 )
         data.put("mobileNumber", "9999999999")
         data.put ("callbackUrl", "https://webhook.site/260afded-143c-4962-a0e7-30cb8cd6d0da")
 
@@ -141,7 +140,11 @@ class CartActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
 
-            Toast.makeText(this, "check callback url", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "check callback url. Result Code is : $resultCode", Toast.LENGTH_SHORT).show()
+
+            val intent = Intent (this@CheckOutActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
@@ -150,7 +153,6 @@ class CartActivity : AppCompatActivity() {
         val md = MessageDigest.getInstance("SHA-256")
         val digest: ByteArray = md.digest(bytes)
         return  digest.fold(""){str, it -> str + "%02x".format(it)}
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

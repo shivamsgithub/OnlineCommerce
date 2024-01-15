@@ -1,4 +1,4 @@
-package com.shivam.onlinecommerce
+package com.shivam.onlinecommerce.Adapter
 
 import android.app.Activity
 import android.view.LayoutInflater
@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.shivam.onlinecommerce.DataModel.ProductX
+import com.shivam.onlinecommerce.R
 import com.squareup.picasso.Picasso
 
 class SearchProductAdapter (val context : Activity ,val searchList:List<ProductX>):RecyclerView.Adapter<SearchProductAdapter.ViewHolder>() {

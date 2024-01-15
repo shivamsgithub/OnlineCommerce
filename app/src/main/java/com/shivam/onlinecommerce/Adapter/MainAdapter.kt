@@ -1,14 +1,14 @@
-package com.shivam.onlinecommerce
+package com.shivam.onlinecommerce.Adapter
 
 import android.app.Activity
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.shivam.onlinecommerce.DataModel.Product
+import com.shivam.onlinecommerce.R
 import com.squareup.picasso.Picasso
 
 class MainAdapter(val context: Activity, val productList: List<Product>) : RecyclerView.Adapter<MainAdapter.MyViewHolder>() {
@@ -23,13 +23,13 @@ class MainAdapter(val context: Activity, val productList: List<Product>) : Recyc
     }
 
     // Layout Manager fails to create view for some data then this method is used
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainAdapter.MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(context).inflate(R.layout.each_product, parent, false)
         return MyViewHolder(itemView, mListener)
     }
 
     // populate data in the view
-    override fun onBindViewHolder(holder: MainAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentitem = productList[position]
 
         holder.title.text = currentitem.title

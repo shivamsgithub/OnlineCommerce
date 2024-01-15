@@ -1,4 +1,4 @@
-package com.shivam.onlinecommerce
+package com.shivam.onlinecommerce.Fragment
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
@@ -15,6 +15,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.shivam.onlinecommerce.Activity.ProductActivity
+import com.shivam.onlinecommerce.Activity.SearchProductActivity
+import com.shivam.onlinecommerce.Adapter.MainAdapter
+import com.shivam.onlinecommerce.Adapter.SliderAdapter
+import com.shivam.onlinecommerce.DataModel.MainProducts
+import com.shivam.onlinecommerce.ProductInterface
+import com.shivam.onlinecommerce.R
 import com.smarteist.autoimageslider.SliderView
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,18 +34,14 @@ class HomeFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
     lateinit var mainAdapter: MainAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+        savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -85,9 +88,13 @@ class HomeFragment : Fragment() {
                 var responseBody = response.body()
                 val productArray = responseBody?.products!!
 
-                mainAdapter = activity?.let { MainAdapter(it, productArray) }!!
-                recyclerView.adapter = mainAdapter
-                recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                if(productArray.size != 0){
+                    mainAdapter = activity?.let { MainAdapter(it, productArray) }!!
+                    recyclerView.adapter = mainAdapter
+                    recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                } else {
+                    Toast.makeText(requireContext(), "No Data Found", Toast.LENGTH_SHORT).show()
+                }
 
                 var url1 =
                     "https://images.gizbot.com/webp/img/2019/10/flipkart-big-billion-days-sale-upto-50-discount-offers-on-t" +
@@ -122,8 +129,6 @@ class HomeFragment : Fragment() {
 //                            tvCartCount.setText("$cartCount")
                     }
                 })
-
-
             }
 
             override fun onFailure(call: Call<MainProducts?>, t: Throwable) {

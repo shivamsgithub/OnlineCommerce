@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.SearchProductActivity">
+    tools:context=".Activity.SplashScreenActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_search_products"
+    <ImageView
+        android:id="@+id/iv_ss"
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:src="@drawable/app_splashscreen_logo"
+        android:layout_gravity="center"
+        android:background="#9B68E8" />
 
 </LinearLayout>

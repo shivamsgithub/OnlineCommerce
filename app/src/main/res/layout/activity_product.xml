@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="fill"
-    tools:context=".ProductActivity">
+    tools:context=".Activity.ProductActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -106,12 +106,31 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_add_to_cart"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add to Cart"
-        android:background="@color/teal_700"
-        android:layout_margin="10dp"/>
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_add_to_cart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add to Cart"
+            android:layout_weight="1"
+            android:background="@color/teal_700"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="20dp"/>
+
+        <Button
+            android:id="@+id/btn_buy_now"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Buy Now"
+            android:background="@color/teal_700"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="20dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>
