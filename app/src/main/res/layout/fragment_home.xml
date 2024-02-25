@@ -16,7 +16,9 @@
             android:id="@+id/sv_products"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:background="#D2DAD7"
+            android:background="@drawable/edittext_bg"
+            android:queryHint="Search"
+            android:iconifiedByDefault="false"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"/>
@@ -24,18 +26,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Latest offers"
+            android:text="Offers"
             android:textStyle="italic"
             android:textColor="@color/black"
             android:layout_gravity="center_horizontal"/>
 
         <com.smarteist.autoimageslider.SliderView
             android:id="@+id/slider"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
             app:sliderAnimationDuration="600"
-            app:sliderAutoCycleDirection="back_and_forth"
+            app:sliderAutoCycleDirection="left"
             app:sliderIndicatorAnimationDuration="600"
             app:sliderIndicatorEnabled="true"
             app:sliderIndicatorGravity="center_horizontal|bottom"
@@ -50,7 +52,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="All Products"
+            android:text="Explore Categories"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -58,7 +60,7 @@
             android:layout_marginBottom="5dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_products"
+            android:id="@+id/rv_categories"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

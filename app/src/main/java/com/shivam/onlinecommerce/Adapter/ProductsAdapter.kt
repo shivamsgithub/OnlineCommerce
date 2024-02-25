@@ -1,62 +1,55 @@
 package com.shivam.onlinecommerce.Adapter
 
-import android.app.Activity
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.shivam.onlinecommerce.DataModel.Product
+import com.shivam.onlinecommerce.DataModel.CategoryProduct
 import com.shivam.onlinecommerce.R
 import com.squareup.picasso.Picasso
 
-class MainAdapter(val context: Activity, val productList: List<Product>) : RecyclerView.Adapter<MainAdapter.MyViewHolder>() {
+class ProductsAdapter(val context: Context?, val productList: List<CategoryProduct>) : RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
 
-    private lateinit var mListener : onItemClickListener
-    interface onItemClickListener{
-        fun OnItemClick(position: Int)
+    private lateinit var mListener : OnItemClickListener
+    interface OnItemClickListener{
+        fun onItemClick(position: Int)
     }
 
-    fun setOnItemClickListener(listener: onItemClickListener){
+    fun setOnItemClickListener(listener: OnItemClickListener){
         mListener = listener
     }
 
-    // Layout Manager fails to create view for some data then this method is used
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(context).inflate(R.layout.each_product, parent, false)
         return MyViewHolder(itemView, mListener)
     }
 
-    // populate data in the view
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentitem = productList[position]
+        val currentItem = productList[position]
 
-        holder.title.text = currentitem.title
 
-        // to put image links into  views, we can use picasso library
-        Picasso.get().load(currentitem.thumbnail).into(holder.image)
+        Picasso.get().load(currentItem.thumbnail).into(holder.image)
+        holder.title.text = currentItem.title
     }
 
-
-    // returns the size of the list
     override fun getItemCount(): Int {
         return productList.size
     }
 
-    class MyViewHolder(itemView : View, listener : onItemClickListener) : RecyclerView.ViewHolder(itemView) {
+    class MyViewHolder(itemView : View, listener : OnItemClickListener) : RecyclerView.ViewHolder(itemView) {
 
         var image: ImageView
         var title: TextView
-
         init {
             image = itemView.findViewById(R.id.iv_product)
             title = itemView.findViewById(R.id.tv_product_name)
 
             itemView.setOnClickListener {
-                listener.OnItemClick(adapterPosition)
+                listener.onItemClick(adapterPosition)
             }
         }
     }
-
 }

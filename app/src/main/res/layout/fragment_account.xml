@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.AccountFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="MY Orders"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:background="@drawable/edittext_bg"/>
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal"
+            android:textSize="18sp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/black"
+            android:text="My Wallet"
+            android:padding="10dp"
+            android:background="@drawable/edittext_bg"/>
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_margin="10dp"
+            android:text="Premium"
+            android:padding="10dp"
+            android:background="@drawable/edittext_bg"/>
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_margin="10dp"
+            android:text="Settings"
+            android:padding="10dp"
+            android:background="@drawable/edittext_bg"/>
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_margin="10dp"
+            android:text="Contact Us"
+            android:padding="10dp"
+            android:background="@drawable/edittext_bg"/>
+
+    </LinearLayout>
+
+
+</FrameLayout>

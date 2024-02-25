@@ -1,7 +1,10 @@
 package com.shivam.onlinecommerce.Activity
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
+import android.content.SharedPreferences
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
@@ -31,33 +34,84 @@ import java.nio.charset.Charset
 import java.security.MessageDigest
 
 class CheckOutActivity : AppCompatActivity() {
+
+    lateinit var tvPrice : TextView
+    lateinit var tvName : TextView
+    lateinit var ivImage : ImageView
+    var position : Int = 0
+    var count : Int = 0
+    var buyCount : Int = 0
+
+    @SuppressLint("MissingInflatedId", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_check_out)
 
-        var position = intent.getIntExtra("position", 0 )
-        var count = intent.getIntExtra("count", 0)
-        var tvPrice = findViewById<TextView>(R.id.tv_productPrice_cart)
-        var tvName = findViewById<TextView>(R.id.tv_productName_cart)
-        var ivImage = findViewById<ImageView>(R.id.iv_product_cart)
-        var tvItemCount = findViewById<TextView>(R.id.tv_item_count)
-
-        tvItemCount.text = "$count"
+        position = intent.getIntExtra("position", 0 )
+        count = intent.getIntExtra("count", 0)
+        buyCount = intent.getIntExtra("buyCount", 0)
+        tvPrice = findViewById(R.id.tv_productPrice_cart)
+        tvName = findViewById<TextView>(R.id.tv_productName_cart)
+        ivImage = findViewById<ImageView>(R.id.iv_product_cart)
+        var btnAddUnit = findViewById<Button>(R.id.btn_add_unit)
+        var btnRemoveUnit = findViewById<Button>(R.id.btn_remove_unit)
+        var tvTotalUnit = findViewById<TextView>(R.id.tv_total_unit)
 
         val toolbar = findViewById<View>(R.id.toolbar) as androidx.appcompat.widget.Toolbar
         toolbar.setTitleTextColor(resources.getColor(R.color.black))
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        tvTotalUnit.setText("$count")
 
+        checkOutAPI(count)
 
+        btnAddUnit.setOnClickListener{
+            btnRemoveUnit.setBackgroundColor(Color.parseColor("#BDBABA"))
+            btnRemoveUnit.isClickable = true
+            count += 1
+            tvTotalUnit.setText("$count")
+            checkOutAPI(count)
+
+            val preferenceManager = getSharedPreferences("Cart Values", MODE_PRIVATE).edit()
+            preferenceManager.putInt("count", count)
+            preferenceManager.apply()
+        }
+
+        btnRemoveUnit.setOnClickListener{
+            count -= 1    //count = count-1
+            val preferenceManager = getSharedPreferences("Cart Values", MODE_PRIVATE).edit()
+            preferenceManager.putInt("count", count)
+            preferenceManager.apply()
+
+            if(count <= 0){
+                var intent = Intent (this@CheckOutActivity, MainActivity:: class.java)
+                startActivity(intent)
+            } else if (count == 1 ){
+                tvTotalUnit.setText("$count")
+                btnRemoveUnit.setBackgroundColor(Color.GRAY)
+                checkOutAPI(1)
+                btnRemoveUnit.isClickable = false
+            }else {
+                btnRemoveUnit.setBackgroundColor(Color.parseColor("#BDBABA"))
+                btnRemoveUnit.isClickable = true
+                tvTotalUnit.setText("$count")
+                checkOutAPI(count)
+            }
+        }
+    }
+
+    fun checkOutAPI (countNew : Int){
         val retrofitBuilder = Retrofit.Builder()
             .baseUrl("https://dummyjson.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ProductInterface::class.java)
 
-        val productDetails = retrofitBuilder.getProductsDetails(position)
+        val prefs: SharedPreferences = getSharedPreferences("Cart Values", MODE_PRIVATE)
+        var id = prefs.getInt("productId", 0)
+
+        val productDetails = retrofitBuilder.getProductsDetails(id)
 
         productDetails.enqueue(object : Callback<Product?> {
             override fun onResponse(call: Call<Product?>, response: Response<Product?>) {
@@ -65,18 +119,19 @@ class CheckOutActivity : AppCompatActivity() {
 
                 if (responseBody != null) {
                     var priceItem = responseBody.price
-                    tvPrice.setText("₹" + "$priceItem")
+                    var totalPrice: Int = priceItem * countNew
+                    tvPrice.setText("₹" + "$totalPrice")
 
-                    phonepeCode(priceItem)
-
-                }
-                if (responseBody != null) {
                     var nameItem = responseBody.title
                     tvName.setText("$nameItem")
-                }
 
-                if (responseBody != null) {
                     Picasso.get().load(responseBody.thumbnail).into(ivImage)
+
+                    if (countNew > 0){
+                        phonepeCode(totalPrice)
+                    } else{
+                        Toast.makeText(this@CheckOutActivity, "Total unit cannot be less than 1", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
 
@@ -84,7 +139,6 @@ class CheckOutActivity : AppCompatActivity() {
                 Log.d(ContentValues.TAG, "onFailure: " + t.message)
             }
         })
-
     }
 
     fun phonepeCode (price : Int){
@@ -141,9 +195,9 @@ class CheckOutActivity : AppCompatActivity() {
         if (requestCode == 1) {
 
             Toast.makeText(this, "check callback url. Result Code is : $resultCode", Toast.LENGTH_SHORT).show()
-
-            val intent = Intent (this@CheckOutActivity, MainActivity::class.java)
-            startActivity(intent)
+            finish()
+        }
+        else {
             finish()
         }
     }

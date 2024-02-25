@@ -29,8 +29,8 @@ class SplashScreenActivity : AppCompatActivity() {
 //        }, 3000) // 3000 is the delayed time in milliseconds.
 
         Handler().postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, SignInActivity::class.java))
             finish()
-        },1500)
+        },1200)
     }
 }

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.shivam.onlinecommerce.R
 
-class ProfileFragment : Fragment() {
+class AccountFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +20,6 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        return inflater.inflate(R.layout.fragment_account, container, false)
     }
 }

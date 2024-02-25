@@ -10,4 +10,10 @@
     <string name="payments_show_name" translatable="false">Successfully received payment data for
         %s!
     </string>
+
+
+    <!-- to toggle the open close button of the navigation drawer -->
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+    <string name="your_web_client_id">629543722686-3bp38f7ul8lsirg3vvkg8761ncbn63si.apps.googleusercontent.com</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.shivam.onlinecommerce
 
 
+import com.shivam.onlinecommerce.DataModel.CategoriesModel
+import com.shivam.onlinecommerce.DataModel.CategoryProductsListModel
 import com.shivam.onlinecommerce.DataModel.MainProducts
 import com.shivam.onlinecommerce.DataModel.Product
 import com.shivam.onlinecommerce.DataModel.SearchProductModel
@@ -22,4 +24,10 @@ interface ProductInterface {
     @GET("/products/search")
     //    search?q=
     fun getSearchedProducts (@Query("q") q : String) : Call<SearchProductModel>
+
+    @GET("/products/categories")
+    fun getCategories () : Call<CategoriesModel>
+
+    @GET("/products/category/smartphones")
+    fun getCategoryProduct () : Call<CategoryProductsListModel>
 }
