@@ -1,3 +1,4 @@
+/*
 package com.shivam.onlinecommerce.Adapter
 
 import android.view.LayoutInflater
@@ -62,4 +63,4 @@ class SliderAdapter(SliderDataModelArrayList: ArrayList<String>) :
             imageViewBackground = itemView.findViewById<ImageView>(R.id.myimage)
         }
     }
-}
+}*/

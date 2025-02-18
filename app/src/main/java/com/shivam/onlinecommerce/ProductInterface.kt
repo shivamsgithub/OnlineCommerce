@@ -28,6 +28,6 @@ interface ProductInterface {
     @GET("/products/categories")
     fun getCategories () : Call<CategoriesModel>
 
-    @GET("/products/category/smartphones")
+    @GET("/products/category/jewelery")
     fun getCategoryProduct () : Call<CategoryProductsListModel>
 }

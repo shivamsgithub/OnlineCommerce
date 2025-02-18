@@ -14,16 +14,14 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shivam.onlinecommerce.Activity.CategoryProductActivity
 import com.shivam.onlinecommerce.Activity.SearchProductActivity
 import com.shivam.onlinecommerce.Adapter.CategoriesAdapter
-import com.shivam.onlinecommerce.Adapter.SliderAdapter
+//import com.shivam.onlinecommerce.Adapter.SliderAdapter
 import com.shivam.onlinecommerce.DataModel.CategoriesModel
 import com.shivam.onlinecommerce.ProductInterface
 import com.shivam.onlinecommerce.R
-import com.smarteist.autoimageslider.SliderView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -78,7 +76,7 @@ class HomeFragment : Fragment() {
         recyclerView = view.findViewById(R.id.rv_categories)
 
         val retrofitBuilder = Retrofit.Builder()
-            .baseUrl("https://dummyjson.com/")
+            .baseUrl("https://fakestoreapi.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ProductInterface::class.java)
@@ -125,13 +123,13 @@ class HomeFragment : Fragment() {
                 SliderDataModelArrayList.add(url2)
                 SliderDataModelArrayList.add(url3)
 
-                val adapter = SliderAdapter(SliderDataModelArrayList)
+                /*val adapter = SliderAdapter(SliderDataModelArrayList)
                 val sliderView = view.findViewById<SliderView>(R.id.slider)
                 sliderView.autoCycleDirection = SliderView.LAYOUT_DIRECTION_LTR
                 sliderView.setSliderAdapter(adapter)
                 sliderView.scrollTimeInSec = 3
                 sliderView.isAutoCycle = true
-                sliderView.startAutoCycle()
+                sliderView.startAutoCycle()*/
             }
 
             override fun onFailure(call: Call<CategoriesModel?>, t: Throwable) {

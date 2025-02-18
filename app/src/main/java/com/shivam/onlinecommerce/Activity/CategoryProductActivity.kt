@@ -40,23 +40,25 @@ class CategoryProductActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.rv_products)
 
         val retrofitBuilder = Retrofit.Builder()
-            .baseUrl("https://dummyjson.com/")
+            .baseUrl("https://fakestoreapi.com")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ProductInterface::class.java)
 
+
         val productData = retrofitBuilder.getCategoryProduct()
-
-
-
-
         productData.enqueue(object : Callback<CategoryProductsListModel> {
             override fun onResponse(call: Call<CategoryProductsListModel>, response: Response<CategoryProductsListModel>) {
                 var responseBody = response.body()
-                val productArray = responseBody?.products
+//                val productArray = responseBody?.products
 
-                    productsAdapter =
-                        productArray?.let { ProductsAdapter(this@CategoryProductActivity, it) }!!
+
+                if (responseBody != null) {
+                    for (i in 0..responseBody.size){
+                        productsAdapter = ProductsAdapter(this@CategoryProductActivity, responseBody)
+                    }
+                }
+//                        productArray?.let { ProductsAdapter(this@CategoryProductActivity, it) }!!
                     recyclerView.adapter = productsAdapter
                     recyclerView.layoutManager = LinearLayoutManager(this@CategoryProductActivity)
 
@@ -69,10 +71,8 @@ class CategoryProductActivity : AppCompatActivity() {
                         val intent = Intent(this@CategoryProductActivity, ProductActivity::class.java)
                         intent.putExtra("productPosition", position)
                         startActivity(intent)
-
                     }
                 })
-
             }
 
             override fun onFailure(call: Call<CategoryProductsListModel>, t: Throwable) {

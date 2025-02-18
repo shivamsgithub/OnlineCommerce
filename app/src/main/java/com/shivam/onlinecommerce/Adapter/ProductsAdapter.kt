@@ -30,8 +30,7 @@ class ProductsAdapter(val context: Context?, val productList: List<CategoryProdu
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = productList[position]
 
-
-        Picasso.get().load(currentItem.thumbnail).into(holder.image)
+        Picasso.get().load(currentItem.image).into(holder.image)
         holder.title.text = currentItem.title
     }
 
